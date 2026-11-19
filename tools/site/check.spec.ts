@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyConfig, checkSite, CRAWLER_FILES, DISCLAIMER, type SiteFiles } from './check.ts';
+import { applyConfig, checkSite, CRAWLER_FILES, DISCLAIMER, versionStylesheet, type SiteFiles } from './check.ts';
 
 const head = `<head><title>GT7 Tutor</title><meta name="description" content="Voice cues for GT7 exercises."><meta property="og:image" content="assets/screenshots/drive.png"><link rel="canonical" href="https://example.org/"><link rel="stylesheet" href="styles.css"></head>`;
 const donate = `<a data-link="donate-kofi" href="https://ko-fi.example.org/owner">Support on Ko-fi</a><a data-link="donate-buymeacoffee" href="https://bmc.example.org/owner">Buy me a coffee</a>`;
@@ -110,6 +110,14 @@ describe('site check', () => {
     expect(checkSite(files(wrong), config)).toEqual([expect.stringContaining('Ko-fi')]);
     const missing = page(goodBody.replace(/<a data-link="donate-buymeacoffee"[^>]*>[^<]*<\/a>/, ''));
     expect(checkSite(files(missing), config)).toEqual([expect.stringContaining('Buy Me a Coffee')]);
+  });
+
+  it('stylesheet_link_carries_the_version_of_the_css', () => {
+    const html = '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="/styles.css?v=old">';
+    const versioned = versionStylesheet(html, 'abc123');
+    expect(versioned).toBe('<link rel="stylesheet" href="styles.css?v=abc123"><link rel="stylesheet" href="/styles.css?v=abc123">');
+    expect(versionStylesheet(versioned, 'abc123')).toBe(versioned);
+    expect(checkSite(files(page(goodBody).replace('href="styles.css"', 'href="styles.css?v=abc123"')), config)).toEqual([]);
   });
 
   it('disclaimer_line_is_present_verbatim', () => {

@@ -40,6 +40,10 @@ export function applyConfig(html: string, config: SiteConfig): string {
   return linked.replace(DONATE_SECTION, (_, _element: string, content: string) => `<${element} data-section="donate">${content}</${element}>`);
 }
 
+export function versionStylesheet(html: string, version: string): string {
+  return html.replace(/(<link rel="stylesheet" href="\/?styles\.css)(\?v=[^"]*)?"/g, `$1?v=${version}"`);
+}
+
 type Tag = { name: string; attributes: Map<string, string> };
 
 function tags(html: string): Tag[] {
