@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GT7 Tutor: voice cues for Gran Turismo 7 exercises</title>
-<meta name="description" content="A self-hosted tutor for Gran Turismo 7 on PS5. It reads your console's live telemetry and calls the next action in your browser: hard brake, full throttle, tighter.">
+<meta name="description" content="A free tutor for Gran Turismo 7 on PS5 that runs on your own computer. It reads the driving data of your console and calls the next action during licence tests and Circuit Experience: hard brake, full throttle, tighter.">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://gt7tutor.app/">
 <meta property="og:title" content="GT7 Tutor">
@@ -31,15 +31,15 @@
         </picture>
       </p>
       <h1><span>Hard brake.</span> <span>Full throttle.</span> <span>Tighter.</span></h1>
-      <p class="lede">GT7 Tutor reads the live telemetry of your PS5 during a Gran Turismo 7 exercise and calls the next action in your browser, about half a second before the point where the reference does it. It runs on your own computer and reads only the telemetry, so you need no account and no cloud service.</p>
+      <p class="lede">GT7 Tutor listens to your PS5 while you drive a Gran Turismo 7 exercise and calls the next action, about half a second before the place where the game's own demonstration does it. Afterwards it shows where your drive is different from that demonstration.</p>
       <div class="actions">
-        <a class="button" data-link="github" href="https://github.com/alex-yurchenko-85/gt7-tutor">Source code on GitHub</a>
-        <a class="button quiet" data-link="github-setup" href="https://github.com/alex-yurchenko-85/gt7-tutor#what-you-need">Read the setup guide</a>
+        <a class="button" data-link="github-setup" href="https://github.com/alex-yurchenko-85/gt7-tutor#what-you-need">Read the setup guide</a>
+        <a class="button quiet" data-link="github" href="https://github.com/alex-yurchenko-85/gt7-tutor">Source code on GitHub</a>
       </div>
       <p class="try-demo"><a data-link="github-demo" href="https://github.com/alex-yurchenko-85/gt7-tutor#try-the-demo-without-a-console">Try it without a console</a>: the demo replays recorded attempts on your computer, with the voice.</p>
     </div>
     <figure class="phone">
-      <img src="assets/screenshots/drive-phone.webp" fetchpriority="high" alt="The drive mode on a phone during a guided attempt. The current cue is Hard brake 115." width="390" height="844">
+      <img src="assets/screenshots/drive-phone.webp" fetchpriority="high" alt="The Drive screen on a phone during a demo attempt: the cue Hard brake 115, cue 1 of 6 before turn 1, the speed, the distance and the gap to the reference, and the map." width="390" height="844">
     </figure>
   </div>
   <section class="roadbook wrap" aria-labelledby="roadbook-title">
@@ -53,42 +53,68 @@
       <li class="brake" style="--at: 96.8%; --anchor: 100%"><b>792 m</b><span>Ease off</span></li>
       <li class="throttle" style="--at: 97.3%; --anchor: 100%"><b>796 m</b><span>Full throttle</span></li>
     </ol>
-    <p class="strip-note">Distances from the start of the reference, the part of the demonstration where its timer runs. Target speeds in km/h, rounded down to 5; the voice says the number only after a brake phrase. T1 marks the apex of the turn.</p>
+    <p class="strip-note">Distances from the start of the reference. Target speeds in km/h, rounded down to 5; the voice says the number only after a brake phrase. T1 marks the apex of the turn.</p>
   </section>
 </header>
 
 <main>
+  <section class="wrap block" aria-labelledby="who-title">
+    <h2 id="who-title">For players who practise</h2>
+    <p class="intro">GT7 Tutor is for a player who drives the licence tests, the Circuit Experience or the Brand Central exercises again and again, and wants to know where the time goes. It is free, and it runs on your own computer at home. You need no account, and your profiles, references and attempts stay on that computer.</p>
+  </section>
+
   <section class="wrap block" aria-labelledby="how-title">
-    <h2 id="how-title">How it works</h2>
-    <p class="intro">For each exercise the application leads you through four steps. It always shows the current step and the next action.</p>
+    <h2 id="how-title">How a training goes</h2>
+    <p class="intro">For each exercise, GT7 Tutor leads you through three steps. The screen always shows the next one.</p>
     <ol class="steps">
       <li>
         <div class="step-text">
           <h3><span class="step-number">1</span>Record the reference</h3>
-          <p>Open the exercise in the game and record its demonstration three times. The demonstration is the same on every run, but the menus before and after it are not, so GT7 Tutor finds the part that repeats and keeps the part where the timer of the demonstration runs. That drive becomes the reference for the cues.</p>
+          <p>Open the exercise in the game, start a recording in GT7 Tutor and let the demonstration play once. GT7 Tutor finds the start and the end of the demonstration by itself. That drive becomes the reference: the cues and the comparison come from it. A second recording is optional and checks that the same part repeats.</p>
         </div>
-        <img src="assets/screenshots/cues-desktop.webp" alt="The cue list of the reference: each cue with its distance, the phrase that the voice says and the target speed, with a row for each turn and a timing slider for each cue." width="1440" height="900" loading="lazy">
+        <img src="assets/screenshots/record-desktop.webp" alt="Record the reference: the demonstration is found in recording 1 and takes 0:16.082. The buttons Use this as the reference and Record again to check." width="1440" height="900" loading="lazy">
       </li>
       <li>
         <div class="step-text">
-          <h3><span class="step-number">2</span>Drive without voice</h3>
-          <p>Drive two or three baseline attempts. The game timer starts and finishes each attempt, and its value is the time of the attempt. GT7 Tutor lists the differences from the reference. These attempts show your pace before the voice helps.</p>
+          <h3><span class="step-number">2</span>Drive with the cues</h3>
+          <p>Select Start an attempt, then drive the exercise in the game. GT7 Tutor finds the start and the finish by itself, and your time is the time that the game gives. The screen shows the next action, your speed and the gap to the reference. The voice names the action: “Hard brake. One fifteen”, “Full throttle”, or “Tighter” when you run wide before an apex. You choose the help: the voice on a computer or a phone, no voice, or single cues muted.</p>
         </div>
-        <img src="assets/screenshots/summary-desktop.webp" alt="The summary after an attempt: the time from the game, the focus for the next attempt, the gap to the best attempt and the largest difference from the reference." width="1440" height="900" loading="lazy">
+        <img src="assets/screenshots/drive-desktop.webp" alt="The Drive screen on a computer during a demo attempt: the cue Hard brake 115, cue 1 of 6 before turn 1, the next cue, the speed, the distance of 818 m, the gap to the reference, and the position on the reference line." width="1440" height="900" loading="lazy">
       </li>
       <li>
         <div class="step-text">
-          <h3><span class="step-number">3</span>Drive with voice</h3>
-          <p>Start a guided attempt and drive. The voice names the action: “Hard brake. One fifteen”, “Full throttle”, “Keep left” or “Keep right” when you leave the line, or “Tighter” when you run wide before an apex. The first word starts about half a second before the point, plus the measured delay of your device. After the finish the voice says one focus for the next attempt, such as “Turn one. Brake later.”</p>
+          <h3><span class="step-number">3</span>Review</h3>
+          <p>Compare each attempt with the reference on a map and in linked speed, pedal and side-distance charts. The review groups the differences by turn and shows the time lost in each turn. A difference is not always a mistake: the reference is one recorded drive, not the best possible line.</p>
         </div>
-        <img src="assets/screenshots/drive-desktop.webp" alt="The drive mode on a computer: the current cue Hard brake 115, the speed, the gap to the reference and the position on the reference line with the apex of the turn." width="1440" height="900" loading="lazy">
+        <img src="assets/screenshots/review-desktop.webp" alt="The review of a demo attempt: the map with the reference line in blue and the attempt in orange, the differences by turn with 0.36 s lost in turn 1, the corner at the apex, and the speed chart." width="1440" height="900" loading="lazy">
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap block" aria-labelledby="features-title">
+    <h2 id="features-title">What you can do</h2>
+    <ol class="steps">
+      <li>
+        <div class="step-text">
+          <h3>Tune each cue</h3>
+          <p>The cue list shows every cue with its distance, phrase and target speed, and each turn with its apex. Hear a cue, mute it, or move it up to 1 s earlier. Places where the same difference repeats in your recent attempts show in yellow, for example “Slower in the corner in 7 of 7 attempts”.</p>
+        </div>
+        <img src="assets/screenshots/cues-desktop.webp" alt="The cue list of the reference: cue 1 Hard brake One fifteen at 291 m with 115 km/h, the recurring differences in yellow, the buttons Hear and Mute and the Timing slider, turn 1 with its apex, and the map with numbered cues." width="1440" height="900" loading="lazy">
       </li>
       <li>
         <div class="step-text">
-          <h3><span class="step-number">4</span>Review</h3>
-          <p>Compare each attempt with the reference on a map and in linked speed and pedal charts. The review groups the differences by turn and shows the time lost in each turn. In the cue list, differences that repeat across attempts show as counts, for example “Braked early in 4 of 6 attempts”. A difference is not always a mistake: the reference is one recorded drive.</p>
+          <h3>Get one focus after each attempt</h3>
+          <p>The summary shows the time from the game, the gap to your best time and the largest difference. The voice says one focus for the next attempt, such as “Turn one. Carry more speed.”</p>
         </div>
-        <img src="assets/screenshots/review-desktop.webp" alt="The review of an attempt: the map with the reference line in blue, the attempt in orange and the apex of the turn, the differences grouped by turn with the time lost, and the speed chart." width="1440" height="900" loading="lazy">
+        <img src="assets/screenshots/summary-desktop.webp" alt="The summary after a demo attempt: the time 0:17.071 from the game, the focus for the next attempt Turn one. Carry more speed., the gap to your best and the largest difference, Braked 17 m earlier at 291 m." width="1440" height="900" loading="lazy">
+      </li>
+      <li>
+        <div class="step-text">
+          <h3>Pick exercises from the catalogue</h3>
+          <p>Find an exercise by name, track, car or code. The catalogue lists 100 licence tests, 58 Circuit Experience sections and 20 Brand Central exercises from public sources. For an activity that it does not list, such as a Time Trial, create your own exercise.</p>
+          <p class="small">GT7 Tutor can follow an exercise only when the game times its demonstration and your run from the start.</p>
+        </div>
+        <img src="assets/screenshots/add-exercise-desktop.webp" alt="Add an exercise, filtered to Circuit Experience, the Americas collection and Autódromo de Interlagos. The exercise is already added. Below the list is the form for your own exercise." width="1440" height="900" loading="lazy">
       </li>
     </ol>
   </section>
@@ -97,17 +123,20 @@
     <h2 id="need-title">What you need</h2>
     <ul class="plain">
       <li>A PS5 with Gran Turismo 7.</li>
-      <li>A computer with macOS or Linux on the same home network as the console.</li>
-      <li>Docker and Node.js 26 or later. In the downloaded folder, the command <code>./start.sh</code> prepares the rest and starts GT7 Tutor.</li>
-      <li>A current browser on that computer or on a phone. On a phone, turn off auto-lock during a session.</li>
+      <li>A Mac or a Linux computer on the same home network as the PS5. Windows is not supported.</li>
+      <li>Two free programs on that computer, Docker and Node.js. The setup guide shows how to install them and start GT7 Tutor.</li>
+      <li>A browser on that computer or on your phone. The voice plays on one of them. On a phone, keep the screen on during a session.</li>
     </ul>
   </section>
 
-  <section class="wrap block" aria-labelledby="exercises-title">
-    <h2 id="exercises-title">Exercises</h2>
-    <p class="intro">Add an exercise from the catalogue, or create your own. You record a reference from a demonstration of the game, and GT7 Tutor then guides you through that exercise.</p>
-    <p class="small">The catalogue lists 100 licence tests, 58 Circuit Experience sections and 20 Brand Central exercises, taken from public sources. GT7 Tutor starts and finishes an attempt with the game timer. The timer is checked in PS5 recordings of one Circuit Experience section and two licence tests. A full training session on a PS5 with this timer is not checked yet.</p>
-    <img class="wide-shot" src="assets/screenshots/add-exercise-desktop.webp" alt="Add an exercise, filtered to Circuit Experience, the Americas collection and Autódromo de Interlagos. The exercise is already added. Below the list is the form for your own exercise." width="1440" height="900" loading="lazy">
+  <section class="wrap block" aria-labelledby="try-title">
+    <h2 id="try-title">Try it</h2>
+    <p class="intro">The demo replays three recorded attempts of Autódromo de Interlagos on your computer, with the cues and the voice. You need no PS5 for it. The user guide shows every screen, from the first profile to the review.</p>
+    <div class="actions">
+      <a class="button" data-link="github-demo" href="https://github.com/alex-yurchenko-85/gt7-tutor#try-the-demo-without-a-console">Start the demo</a>
+      <a class="button quiet" data-link="github-setup" href="https://github.com/alex-yurchenko-85/gt7-tutor#what-you-need">Read the setup guide</a>
+      <a class="button quiet" href="https://github.com/alex-yurchenko-85/gt7-tutor/blob/main/docs/user-guide/README.md">Open the user guide</a>
+    </div>
   </section>
 
   <section data-section="donate">
