@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { applyConfig, checkSite, CRAWLER_FILES, DISCLAIMER, type SiteFiles } from './check.ts';
 
 const head = `<head><title>GT7 Tutor</title><meta name="description" content="Voice cues for GT7 exercises."><meta property="og:image" content="assets/screenshots/drive.png"><link rel="canonical" href="https://example.org/"><link rel="stylesheet" href="styles.css"></head>`;
-const donate = `<a data-link="donate" href="https://example.org/donate">Buy a coffee</a>`;
+const donate = `<a data-link="donate-kofi" href="https://ko-fi.example.org/owner">Support on Ko-fi</a><a data-link="donate-buymeacoffee" href="https://bmc.example.org/owner">Buy me a coffee</a>`;
 
 function page(body: string, extraHead = ''): string {
   return `<!doctype html><html lang="en">${head.replace('</head>', `${extraHead}</head>`)}<body>${body}<footer><p>${DISCLAIMER}</p></footer></body></html>`;
@@ -17,7 +17,7 @@ function files(html: string, css = 'body { font-family: "Sofia Sans"; } @font-fa
   return { html, css, exists: path => existing.has(path) };
 }
 
-const config = { githubUrl: 'https://github.com/owner/gt7-tutor', donateUrl: 'https://example.org/donate' };
+const config = { githubUrl: 'https://github.com/owner/gt7-tutor', donate: { kofi: 'https://ko-fi.example.org/owner', buyMeACoffee: 'https://bmc.example.org/owner' } };
 
 describe('site check', () => {
   it('accepts_a_complete_page', () => {
@@ -49,10 +49,11 @@ describe('site check', () => {
   });
 
   it('github_and_donate_links_come_from_config', () => {
-    const template = page(`<a data-link="github" href="#">GitHub</a><template data-section="donate"><p>Optional.</p><a data-link="donate" href="#">Buy a coffee</a></template>`);
+    const template = page(`<a data-link="github" href="#">GitHub</a><template data-section="donate"><p>Optional.</p><a data-link="donate-kofi" href="#">Ko-fi</a><a data-link="donate-buymeacoffee" href="#">Buy me a coffee</a></template>`);
     const applied = applyConfig(template, config);
     expect(applied).toContain('<a data-link="github" href="https://github.com/owner/gt7-tutor">');
-    expect(applied).toContain('<a data-link="donate" href="https://example.org/donate">');
+    expect(applied).toContain('<a data-link="donate-kofi" href="https://ko-fi.example.org/owner">');
+    expect(applied).toContain('<a data-link="donate-buymeacoffee" href="https://bmc.example.org/owner">');
     expect(applied).toContain('<section data-section="donate">');
     expect(checkSite(files(page(goodBody)), { ...config, githubUrl: 'https://github.com/other/repo' })).toEqual([
       expect.stringContaining('github')
@@ -84,13 +85,31 @@ describe('site check', () => {
     expect(checkSite(files(applied), config)).toEqual([]);
   });
 
-  it('null_donate_url_removes_the_section', () => {
-    const applied = applyConfig(page(goodBody), { ...config, donateUrl: null });
+  it('null_donate_removes_the_section', () => {
+    const applied = applyConfig(page(goodBody), { ...config, donate: null });
     expect(applied).not.toContain('<section data-section="donate">');
     expect(applied).toContain('<template data-section="donate">');
-    expect(checkSite(files(applied), { ...config, donateUrl: null })).toEqual([]);
-    expect(checkSite(files(page(goodBody)), { ...config, donateUrl: null })).toEqual([expect.stringContaining('donate')]);
+    expect(checkSite(files(applied), { ...config, donate: null })).toEqual([]);
+    expect(checkSite(files(page(goodBody)), { ...config, donate: null })).toEqual([expect.stringContaining('donate')]);
     expect(applyConfig(applied, config)).toContain('<section data-section="donate">');
+  });
+
+  it('every_donate_block_follows_the_config', () => {
+    const template = page(`<a data-link="github" href="https://github.com/owner/gt7-tutor">GitHub</a><template data-section="donate"><p>Main.</p>${donate}</template><template data-section="donate"><p>Footer.</p>${donate}</template>`);
+    const shown = applyConfig(template, config);
+    expect(shown.match(/<section data-section="donate">/g)).toHaveLength(2);
+    expect(shown).not.toContain('<template data-section="donate">');
+    expect(checkSite(files(shown), config)).toEqual([]);
+    const hidden = applyConfig(shown, { ...config, donate: null });
+    expect(hidden.match(/<template data-section="donate">/g)).toHaveLength(2);
+    expect(checkSite(files(hidden), { ...config, donate: null })).toEqual([]);
+  });
+
+  it('each_donate_link_must_match_the_config_and_be_present', () => {
+    const wrong = page(goodBody.replace('https://ko-fi.example.org/owner', 'https://ko-fi.example.org/other'));
+    expect(checkSite(files(wrong), config)).toEqual([expect.stringContaining('Ko-fi')]);
+    const missing = page(goodBody.replace(/<a data-link="donate-buymeacoffee"[^>]*>[^<]*<\/a>/, ''));
+    expect(checkSite(files(missing), config)).toEqual([expect.stringContaining('Buy Me a Coffee')]);
   });
 
   it('disclaimer_line_is_present_verbatim', () => {

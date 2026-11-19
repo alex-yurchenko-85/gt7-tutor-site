@@ -3,11 +3,18 @@ export const DISCLAIMER =
 
 export const CRAWLER_FILES = ['robots.txt', 'sitemap.xml', '404.html'];
 
-export type SiteConfig = { githubUrl: string; donateUrl: string | null };
+export type DonateLinks = { kofi: string; buyMeACoffee: string };
+
+export type SiteConfig = { githubUrl: string; donate: DonateLinks | null };
+
+const DONATE_LINKS = [
+  { name: 'donate-kofi', label: 'Ko-fi', url: (links: DonateLinks) => links.kofi },
+  { name: 'donate-buymeacoffee', label: 'Buy Me a Coffee', url: (links: DonateLinks) => links.buyMeACoffee }
+] as const;
 
 export type SiteFiles = { html: string; css: string; exists(path: string): boolean };
 
-const DONATE_SECTION = /<(section|template) data-section="donate">([\s\S]*?)<\/\1>/;
+const DONATE_SECTION = /<(section|template) data-section="donate">([\s\S]*?)<\/\1>/g;
 const PLACEHOLDER_HREF = '#';
 export const README_DEMO_ANCHOR = 'try-the-demo-without-a-console';
 export const README_SETUP_ANCHOR = 'what-you-need';
@@ -20,7 +27,7 @@ function readmeHref(githubUrl: string, anchor: string): string {
   return githubUrl ? `${githubUrl}#${anchor}` : PLACEHOLDER_HREF;
 }
 
-function setLink(html: string, name: 'github' | 'github-demo' | 'github-setup' | 'donate', url: string | null): string {
+function setLink(html: string, name: string, url: string | null): string {
   return html.replace(new RegExp(`(<a\\b[^>]*\\sdata-link="${name}" href=")[^"]*"`, 'g'), `$1${linkHref(url)}"`);
 }
 
@@ -28,8 +35,8 @@ export function applyConfig(html: string, config: SiteConfig): string {
   const withGithub = setLink(html, 'github', config.githubUrl);
   const withDemo = setLink(withGithub, 'github-demo', readmeHref(config.githubUrl, README_DEMO_ANCHOR));
   const withSetup = setLink(withDemo, 'github-setup', readmeHref(config.githubUrl, README_SETUP_ANCHOR));
-  const linked = setLink(withSetup, 'donate', config.donateUrl);
-  const element = config.donateUrl ? 'section' : 'template';
+  const linked = DONATE_LINKS.reduce((html, link) => setLink(html, link.name, config.donate ? link.url(config.donate) : null), withSetup);
+  const element = config.donate ? 'section' : 'template';
   return linked.replace(DONATE_SECTION, (_, _element: string, content: string) => `<${element} data-section="donate">${content}</${element}>`);
 }
 
@@ -100,12 +107,17 @@ function configuredLinks(html: string, page: Tag[], config: SiteConfig): string[
   if (hrefs('github-demo').some(href => href !== readmeHref(config.githubUrl, README_DEMO_ANCHOR))) problems.push('A demo link does not point to the demo section of the README.');
   if (hrefs('github-setup').some(href => href !== readmeHref(config.githubUrl, README_SETUP_ANCHOR))) problems.push('A setup link does not point to the setup section of the README.');
   const section = /<section data-section="donate">/.test(html);
-  if (config.donateUrl === null) {
-    if (section || hrefs('donate').length > 0) problems.push('The donate section is on the page, but donateUrl is null.');
+  const donateHrefs = DONATE_LINKS.flatMap(link => hrefs(link.name));
+  if (config.donate === null) {
+    if (section || donateHrefs.length > 0) problems.push('The donate section is on the page, but donate is null.');
     return problems;
   }
-  if (!section) problems.push('The donate section is missing, but donateUrl is set.');
-  if (hrefs('donate').some(href => href !== config.donateUrl)) problems.push('A donate link does not match site.config.json.');
+  if (!section) problems.push('The donate section is missing, but donate is set.');
+  for (const link of DONATE_LINKS) {
+    const found = hrefs(link.name);
+    if (found.length === 0) problems.push(`The page has no ${link.label} link.`);
+    if (found.some(href => href !== link.url(config.donate!))) problems.push(`A ${link.label} link does not match site.config.json.`);
+  }
   return problems;
 }
 

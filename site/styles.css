@@ -429,6 +429,50 @@ h1 {
   padding-bottom: 32px;
 }
 
+.donate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.donate-actions .button {
+  margin: 0;
+  gap: 10px;
+}
+
+.button.brand.kofi {
+  background: #ff5e5b;
+  color: #ffffff;
+}
+
+.button.brand.bmc {
+  background: #ffdd00;
+  color: #14181f;
+}
+
+.button.brand:hover {
+  filter: brightness(1.08);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+@media (max-width: 600px) {
+  .donate-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .donate-actions .button {
+    justify-content: center;
+  }
+}
+
 .footer {
   margin-top: 72px;
   padding: 40px 0 56px;
