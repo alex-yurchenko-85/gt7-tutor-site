@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GT7 Tutor: voice cues for Gran Turismo 7 exercises</title>
+<meta name="description" content="A self-hosted tutor for Gran Turismo 7 on PS5. It reads your console's live telemetry and calls the next action in your browser: hard brake, full throttle, tighter.">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://gt7tutor.app/">
+<meta property="og:title" content="GT7 Tutor">
+<meta property="og:description" content="Voice cues for Gran Turismo 7 exercises, timed from the live telemetry of your PS5.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GT7 Tutor">
+<meta property="og:url" content="https://gt7tutor.app/">
+<meta property="og:image" content="https://gt7tutor.app/assets/screenshots/social.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="The GT7 Tutor logo and a phone that shows the cue Hard brake 85 and the track.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="brand">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/brand/logo-dark-600.png">
+          <img src="assets/brand/logo-light-600.png" alt="GT7 Tutor" width="300" height="67">
+        </picture>
+      </p>
+      <h1><span>Hard brake.</span> <span>Full throttle.</span> <span>Tighter.</span></h1>
+      <p class="lede">GT7 Tutor reads the live telemetry of your PS5 during a Gran Turismo 7 exercise and calls the next action in your browser, about half a second before the point where the reference does it. It runs on your own computer and reads only the telemetry, so you need no account and no cloud service.</p>
+      <div class="actions">
+        <a class="button" data-link="github" href="https://github.com/alex-yurchenko-85/gt7-tutor">Source code on GitHub</a>
+        <a class="button quiet" data-link="github-setup" href="https://github.com/alex-yurchenko-85/gt7-tutor#what-you-need">Read the setup guide</a>
+      </div>
+      <p class="try-demo"><a data-link="github-demo" href="https://github.com/alex-yurchenko-85/gt7-tutor#try-the-demo-without-a-console">Try it without a console</a>: the demo replays recorded attempts on your computer, with the voice.</p>
+    </div>
+    <figure class="phone">
+      <img src="assets/screenshots/drive-phone.webp" fetchpriority="high" alt="The drive mode on a phone during a guided attempt. The current cue is Hard brake 115." width="390" height="844">
+    </figure>
+  </div>
+  <section class="roadbook wrap" aria-labelledby="roadbook-title">
+    <h2 id="roadbook-title" class="roadbook-title">One reference, six cues: Autódromo de Interlagos, Circuit Experience sector 2 (818 m)</h2>
+    <ol class="strip">
+      <li class="brake" style="--at: 35.6%"><b>291 m</b><span>Hard brake <em>115</em></span></li>
+      <li class="apex" style="--at: 49.4%"><b>404 m</b><span>T1</span></li>
+      <li class="throttle" style="--at: 50.2%"><b>411 m</b><span>Full throttle</span></li>
+      <li class="brake" style="--at: 68.9%; --anchor: 100%"><b>564 m</b><span>Ease off</span></li>
+      <li class="throttle" style="--at: 69.4%; --anchor: 0%"><b>568 m</b><span>Full throttle</span></li>
+      <li class="brake" style="--at: 96.8%; --anchor: 100%"><b>792 m</b><span>Ease off</span></li>
+      <li class="throttle" style="--at: 97.3%; --anchor: 100%"><b>796 m</b><span>Full throttle</span></li>
+    </ol>
+    <p class="strip-note">Distances from the start of the reference, the part of the demonstration where its timer runs. Target speeds in km/h, rounded down to 5; the voice says the number only after a brake phrase. T1 marks the apex of the turn.</p>
+  </section>
+</header>
+
+<main>
+  <section class="wrap block" aria-labelledby="how-title">
+    <h2 id="how-title">How it works</h2>
+    <p class="intro">For each exercise the application leads you through four steps. It always shows the current step and the next action.</p>
+    <ol class="steps">
+      <li>
+        <div class="step-text">
+          <h3><span class="step-number">1</span>Record the reference</h3>
+          <p>Open the exercise in the game and record its demonstration three times. The demonstration is the same on every run, but the menus before and after it are not, so GT7 Tutor finds the part that repeats and keeps the part where the timer of the demonstration runs. That drive becomes the reference for the cues.</p>
+        </div>
+        <img src="assets/screenshots/cues-desktop.webp" alt="The cue list of the reference: each cue with its distance, the phrase that the voice says and the target speed, with a row for each turn and a timing slider for each cue." width="1440" height="900" loading="lazy">
+      </li>
+      <li>
+        <div class="step-text">
+          <h3><span class="step-number">2</span>Drive without voice</h3>
+          <p>Drive two or three baseline attempts. The game timer starts and finishes each attempt, and its value is the time of the attempt. GT7 Tutor lists the differences from the reference. These attempts show your pace before the voice helps.</p>
+        </div>
+        <img src="assets/screenshots/summary-desktop.webp" alt="The summary after an attempt: the time from the game, the focus for the next attempt, the gap to the best attempt and the largest difference from the reference." width="1440" height="900" loading="lazy">
+      </li>
+      <li>
+        <div class="step-text">
+          <h3><span class="step-number">3</span>Drive with voice</h3>
+          <p>Start a guided attempt and drive. The voice names the action: “Hard brake. One fifteen”, “Full throttle”, “Keep left” or “Keep right” when you leave the line, or “Tighter” when you run wide before an apex. The first word starts about half a second before the point, plus the measured delay of your device. After the finish the voice says one focus for the next attempt, such as “Turn one. Brake later.”</p>
+        </div>
+        <img src="assets/screenshots/drive-desktop.webp" alt="The drive mode on a computer: the current cue Hard brake 115, the speed, the gap to the reference and the position on the reference line with the apex of the turn." width="1440" height="900" loading="lazy">
+      </li>
+      <li>
+        <div class="step-text">
+          <h3><span class="step-number">4</span>Review</h3>
+          <p>Compare each attempt with the reference on a map and in linked speed and pedal charts. The review groups the differences by turn and shows the time lost in each turn. In the cue list, differences that repeat across attempts show as counts, for example “Braked early in 4 of 6 attempts”. A difference is not always a mistake: the reference is one recorded drive.</p>
+        </div>
+        <img src="assets/screenshots/review-desktop.webp" alt="The review of an attempt: the map with the reference line in blue, the attempt in orange and the apex of the turn, the differences grouped by turn with the time lost, and the speed chart." width="1440" height="900" loading="lazy">
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap block" aria-labelledby="need-title">
+    <h2 id="need-title">What you need</h2>
+    <ul class="plain">
+      <li>A PS5 with Gran Turismo 7.</li>
+      <li>A computer with macOS, Windows or Linux on the same home network as the console.</li>
+      <li>Docker for the database, and Node.js 26 or later with pnpm. On macOS and Linux, a setup script checks these and prepares the rest. On Windows, the command <code>pnpm setup:local</code> prepares the rest.</li>
+      <li>A current browser on that computer or on a phone. On a phone, turn off auto-lock during a session.</li>
+    </ul>
+  </section>
+
+  <section class="wrap block" aria-labelledby="exercises-title">
+    <h2 id="exercises-title">Exercises</h2>
+    <p class="intro">Add an exercise from the catalogue, or create your own. You record a reference from a demonstration of the game, and GT7 Tutor then guides you through that exercise.</p>
+    <p class="small">The catalogue lists 100 licence tests, 58 Circuit Experience sections and 20 Brand Central exercises, taken from public sources. GT7 Tutor starts and finishes an attempt with the game timer. The timer is checked in PS5 recordings of one Circuit Experience section and two licence tests. A full training session on a PS5 with this timer is not checked yet.</p>
+    <img class="wide-shot" src="assets/screenshots/add-exercise-desktop.webp" alt="Add an exercise, filtered to Circuit Experience, the Americas collection and Autódromo de Interlagos. The exercise is already added. Below the list is the form for your own exercise." width="1440" height="900" loading="lazy">
+  </section>
+
+  <template data-section="donate">
+    <section class="wrap block support" aria-labelledby="support-title">
+      <h2 id="support-title">Support the project</h2>
+      <p>GT7 Tutor is free and stays free. If it helps you, you can buy the author a coffee. Donations unlock nothing: every feature is in the free code.</p>
+      <a class="button" data-link="donate" href="#">Buy me a coffee</a>
+    </section>
+  </template>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>The code is under the GNU General Public License, version 3. Catalogue data comes from the Gran Turismo Wiki (CC BY-SA) and from the gt7info tables (MIT-0). The voice is Kokoro-82M, voice af_heart (Apache-2.0). The fonts are Sofia Sans and Sofia Sans Condensed (<a href="assets/fonts/OFL.txt">SIL Open Font License 1.1</a>).</p>
+    <p>GT7 Tutor is an unofficial fan project. It is not affiliated with or endorsed by Sony Interactive Entertainment or Polyphony Digital. Gran Turismo is a trademark or registered trademark of Sony Interactive Entertainment Inc.</p>
+  </div>
+</footer>
+</body>
+</html>
