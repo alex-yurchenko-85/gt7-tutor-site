@@ -9,9 +9,12 @@
   },
   "scripts": {
     "check": "node tools/site-check.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "commitlint": "commitlint"
   },
   "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@types/node": "26.6.6",
     "vitest": "5.1.0"
   }

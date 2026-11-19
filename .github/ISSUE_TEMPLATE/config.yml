@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Problem with the GT7 Tutor application
+    url: https://github.com/alex-yurchenko-85/gt7-tutor/issues/new/choose
+    about: Report a problem of the application in the main project.
+  - name: Question or idea
+    url: https://github.com/alex-yurchenko-85/gt7-tutor/discussions
+    about: Ask a question or describe an idea in the Discussions of the main project.
+  - name: Security vulnerability
+    url: https://github.com/alex-yurchenko-85/gt7-tutor-site/security/advisories/new
+    about: Report a vulnerability privately. Do not open a public issue.
