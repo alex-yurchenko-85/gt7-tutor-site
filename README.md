@@ -20,4 +20,4 @@ To see the page, open `site/index.html` in a browser.
 
 ## Licence
 
-GPL-3.0. See `LICENSE`. The fonts have their own licence in `site/assets/fonts/OFL.txt`.
+GPL-3.0. See `LICENSE`. The fonts have their own licence in `site/assets/fonts/OFL.txt`. The voice clips in `site/assets/voice/` come from the main project; their source and licence are in `site/assets/voice/NOTICE.md`.

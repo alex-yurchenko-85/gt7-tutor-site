@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="The GT7 Tutor logo and a phone that shows the Drive screen with the cue Hard brake 115, the speed, the distance and the gap to the reference.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=9b62fe36e6">
+<link rel="stylesheet" href="styles.css?v=0aae09485a">
 </head>
 <body>
 <header class="hero">
@@ -43,17 +43,28 @@
     </figure>
   </div>
   <section class="roadbook wrap" aria-labelledby="roadbook-title">
+    <div class="rb-grid">
+    <div>
     <h2 id="roadbook-title" class="roadbook-title">One reference, six cues: Autódromo de Interlagos, Circuit Experience sector 2 (818 m)</h2>
     <ol class="strip">
-      <li class="brake" style="--at: 35.6%"><b>291 m</b><span>Hard brake <em>115</em></span></li>
+      <li class="brake" data-n="1" style="--at: 35.6%"><b>291 m</b><span>Hard brake <em>115</em></span></li>
       <li class="apex" style="--at: 49.4%"><b>404 m</b><span>T1</span></li>
-      <li class="throttle" style="--at: 50.2%"><b>411 m</b><span>Full throttle</span></li>
-      <li class="brake" style="--at: 68.9%; --anchor: 100%"><b>564 m</b><span>Lift off</span></li>
-      <li class="throttle" style="--at: 69.4%; --anchor: 0%"><b>568 m</b><span>Full throttle</span></li>
-      <li class="brake" style="--at: 96.8%; --anchor: 100%"><b>792 m</b><span>Lift off</span></li>
-      <li class="throttle" style="--at: 97.3%; --anchor: 100%"><b>796 m</b><span>Full throttle</span></li>
+      <li class="throttle" data-n="2" style="--at: 50.2%"><b>411 m</b><span>Full throttle</span></li>
+      <li class="brake" data-n="3" style="--at: 68.9%; --anchor: 100%"><b>564 m</b><span>Lift off</span></li>
+      <li class="throttle" data-n="4" style="--at: 69.4%; --anchor: 0%"><b>568 m</b><span>Full throttle</span></li>
+      <li class="brake" data-n="5" style="--at: 96.8%; --anchor: 100%"><b>792 m</b><span>Lift off</span></li>
+      <li class="throttle" data-n="6" style="--at: 97.3%; --anchor: 100%"><b>796 m</b><span>Full throttle</span></li>
     </ol>
-    <p class="strip-note">Distances from the start of the reference. Target speeds in km/h, rounded down to 5; the voice says the number only after a brake phrase, and it is the lowest speed of the reference in that place. T1 marks the apex of the turn.</p>
+    <p class="strip-note">Distances from the start of the reference. Target speeds in km/h, rounded down to 5; the voice says the number only after a brake phrase, and it is the lowest speed of the reference in that place. T1 marks the apex of the turn. A dashed label marks a cue that the voice does not say on this reference: the voice still says the Lift off before it.</p>
+    <div class="cue-play" hidden>
+      <button type="button" class="button cue-toggle"><span class="cue-icon" aria-hidden="true"></span><span class="cue-label">Play the cues</span></button>
+      <span class="cue-bar" aria-hidden="true"><i></i></span>
+      <span class="cue-time"></span>
+      <p class="cue-says" aria-live="polite"></p>
+    </div>
+    </div>
+    <figure class="cue-map" hidden></figure>
+    </div>
   </section>
 </header>
 
@@ -158,5 +169,6 @@
     <p>GT7 Tutor is an unofficial fan project. It is not affiliated with or endorsed by Sony Interactive Entertainment or Polyphony Digital. Gran Turismo is a trademark or registered trademark of Sony Interactive Entertainment Inc.</p>
   </div>
 </footer>
+<script src="assets/cue-preview.js" defer></script>
 </body>
 </html>

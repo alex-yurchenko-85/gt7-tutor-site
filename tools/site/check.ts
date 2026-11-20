@@ -14,6 +14,8 @@ const DONATE_LINKS = [
 
 export type SiteFiles = { html: string; css: string; exists(path: string): boolean };
 
+export const PAGE_SCRIPT = 'assets/cue-preview.js';
+
 const DONATE_SECTION = /<(section|template) data-section="donate">([\s\S]*?)<\/\1>/g;
 const PLACEHOLDER_HREF = '#';
 export const README_DEMO_ANCHOR = 'try-the-demo-without-a-console';
@@ -89,7 +91,8 @@ function missingFiles(files: SiteFiles, page: Tag[]): string[] {
 
 function externalResources(files: SiteFiles, page: Tag[]): string[] {
   const problems: string[] = [];
-  if (page.some(tag => tag.name === 'script')) problems.push('The page has a script. It must have none.');
+  if (page.some(tag => tag.name === 'script' && tag.attributes.get('src') !== PAGE_SCRIPT)) problems.push(`The page has a script other than ${PAGE_SCRIPT}.`);
+  if (/<script\b[^>]*>[^<]+<\/script>/i.test(files.html)) problems.push('A script has code inside the page.');
   if (page.some(tag => tag.name === 'iframe' || tag.name === 'embed' || tag.name === 'object')) problems.push('The page embeds another document.');
   const loadsResource = (tag: Tag) => tag.name === 'link' && tag.attributes.get('rel') !== 'canonical';
   for (const tag of page.filter(candidate => loadsResource(candidate) && isExternal(candidate.attributes.get('href') ?? ''))) {
