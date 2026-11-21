@@ -1,7 +1,7 @@
 # Voice clips notice
 
 The files in this folder are speech clips of GT7 Tutor: `big-stop`, `hard-brake`, `speed-115`, `full-throttle` and `ease-off`.
-They are copies of the clips in `content/audio/clips/` of the main project, <https://github.com/alex-yurchenko-85/gt7-tutor>, converted to AAC (48 kbit/s, mono) for this page.
+They are copies of the clips in `content/audio/en/clips/` of the main project, <https://github.com/alex-yurchenko-85/gt7-tutor>, converted to AAC (48 kbit/s, mono) for this page.
 
 ## Speech model and voice
 
