@@ -58,7 +58,7 @@
   const big = document.createElement('button');
   big.type = 'button';
   big.className = 'cm-big';
-  big.innerHTML = '<span aria-hidden="true"></span>Play the cues';
+  big.innerHTML = '<span aria-hidden="true"></span>Play';
   big.setAttribute('aria-label', 'Play the cues of this reference, with sound');
   map.appendChild(big);
   map.hidden = false;
@@ -119,7 +119,7 @@
     car.setAttribute('visibility', 'hidden');
     highlight(null);
     big.hidden = false;
-    label.textContent = 'Play the cues';
+    label.textContent = 'Play';
     toggle.classList.remove('running');
     bar.style.width = '0';
     time.textContent = '';

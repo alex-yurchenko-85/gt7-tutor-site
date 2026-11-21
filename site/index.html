@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="The GT7 Tutor logo and a phone that shows the Drive screen with the cue Hard brake 115, the next cue, the speed, the distance and the gap to the reference.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=0aae09485a">
+<link rel="stylesheet" href="styles.css?v=78a51d6064">
 </head>
 <body>
 <header class="hero">
@@ -57,7 +57,7 @@
     </ol>
     <p class="strip-note">Distances from the start of the reference. Target speeds in km/h, rounded down to 5; the voice says the number only after a brake phrase, and it is the lowest speed of the reference in that place. T1 marks the apex of the turn. A dashed label marks a cue that the voice does not say on this reference: the voice still says the Lift off before it.</p>
     <div class="cue-play" hidden>
-      <button type="button" class="button cue-toggle"><span class="cue-icon" aria-hidden="true"></span><span class="cue-label">Play the cues</span></button>
+      <button type="button" class="button cue-toggle"><span class="cue-icon" aria-hidden="true"></span><span class="cue-label">Play</span></button>
       <span class="cue-bar" aria-hidden="true"><i></i></span>
       <span class="cue-time"></span>
       <p class="cue-says" aria-live="polite"></p>
@@ -144,6 +144,35 @@
     </ol>
   </section>
 
+  <section class="wrap block race-demo" aria-labelledby="race-demo-title" hidden>
+    <h2 id="race-demo-title" class="roadbook-title">The first 2 laps of a recorded race: High Speed Ring, 5 laps, 20 cars, Lexus RC F Gr.4</h2>
+    <div class="rd-grid">
+      <div class="rd-left">
+        <div class="rd-stage">
+          <p class="rd-status"><span class="rd-dot" aria-hidden="true"></span><span></span></p>
+          <p class="rd-word"><span></span> <span class="rd-of"></span></p>
+          <div class="rd-stats"></div>
+          <div class="rd-dots" role="img"></div>
+        </div>
+        <div class="rd-controls">
+          <button type="button" class="button rd-toggle"><span class="rd-icon" aria-hidden="true"></span><span class="rd-label">Play</span></button>
+          <span class="rd-bar" aria-hidden="true"><i></i></span>
+          <span class="rd-time"></span>
+        </div>
+      </div>
+      <figure class="rd-map"></figure>
+    </div>
+    <h3 class="rd-laps-title">Laps</h3>
+    <p class="rd-empty">The laps show here as the race runs.</p>
+    <div class="rd-table">
+      <table class="rd-laps" hidden>
+        <thead><tr><th class="rd-n">Lap</th><th>Time</th><th class="rd-gap">Gap to best</th><th>Position</th><th class="rd-top">Top speed</th><th>Off the track</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="rd-live" aria-live="polite"></p>
+  </section>
+
   <section class="wrap block" aria-labelledby="need-title">
     <h2 id="need-title">What you need</h2>
     <ul class="plain">
@@ -184,5 +213,6 @@
   </div>
 </footer>
 <script src="assets/cue-preview.js" defer></script>
+<script src="assets/race-preview.js" defer></script>
 </body>
 </html>

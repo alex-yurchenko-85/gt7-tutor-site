@@ -48,9 +48,10 @@ describe('site check', () => {
     expect(checkSite(files(page(goodBody), '@font-face { src: url(https://fonts.example.org/x.woff2); }'), config).length).toBeGreaterThan(0);
   });
 
-  it('allows_only_the_local_cue_preview_script', () => {
-    const local = (html: string) => ({ ...files(html), exists: (path: string) => path === 'assets/cue-preview.js' || files(html).exists(path) });
+  it('allows_only_the_local_preview_scripts', () => {
+    const local = (html: string) => ({ ...files(html), exists: (path: string) => ['assets/cue-preview.js', 'assets/race-preview.js'].includes(path) || files(html).exists(path) });
     expect(checkSite(local(page(`${goodBody}<script src="assets/cue-preview.js" defer></script>`)), config)).toEqual([]);
+    expect(checkSite(local(page(`${goodBody}<script src="assets/cue-preview.js" defer></script><script src="assets/race-preview.js" defer></script>`)), config)).toEqual([]);
     expect(checkSite(local(page(`${goodBody}<script src="assets/other.js" defer></script>`)), config).length).toBeGreaterThan(0);
     expect(checkSite(local(page(`${goodBody}<script src="assets/cue-preview.js">window.track = 1</script>`)), config).length).toBeGreaterThan(0);
   });
